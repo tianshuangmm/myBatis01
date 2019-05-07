@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 *   通过sqlSessionFactory打开数据库会话
 */
 //访问数据库类
-public class DBaccess {
+public class DBAccess {
 
     public SqlSession getSqlSession() {
         SqlSession sqlSession = null;
