@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <% String path=request.getContextPath();
-    String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/"+path+"/mybatis/";
+    String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/"+path;
 %>
 
 <html>
@@ -14,7 +14,7 @@
     <link href="css/all.css" rel="stylesheet" type="text/css" />
 </head>
 <body style="background: #e1e9eb;">
-<form action="${basePath}ListServlet" id="mainForm" method="post">
+<form action="${basePath}/mybatis/ListServlet2" id="mainForm" method="post">
     <div class="right">
         <div class="current">当前位置：<a href="javascript:void(0)" style="color:#6E6E6E;">内容管理</a> &gt; 内容列表</div>
         <div class="rightCont">

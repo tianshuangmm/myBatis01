@@ -12,4 +12,12 @@
     <servlet-name>ListServlet</servlet-name>
     <url-pattern>/ListServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>ListServlet2</servlet-name>
+    <servlet-class>com.ts.mybatis01.servlet.ListServlet2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListServlet2</servlet-name>
+    <url-pattern>/ListServlet2</url-pattern>
+  </servlet-mapping>
 </web-app>
