@@ -24,23 +24,17 @@ import java.util.ResourceBundle;
 //访问数据库类
 public class DBAccess {
 
-    public SqlSession getSqlSession() {
+    public SqlSession getSqlSession() throws IOException {
         SqlSession sqlSession = null;
         Connection connection = null;
-        try {
-            //通过配置文件获取数据库连接信息
-            //src是根路径
-            Reader resourceAsReader = Resources.getResourceAsReader("resources/Configuration.xml");
-            //通过配置信息构建sqlSessionFactory
-            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsReader);
-            //通过sqlSessionFactory打开一个会话
-            sqlSession = sqlSessionFactory.openSession();
-            connection = sqlSession.getConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }/*finally {
-            sqlSession.close();
-        }*/
+        //通过配置文件获取数据库连接信息
+        //src是根路径
+        Reader resourceAsReader = Resources.getResourceAsReader("resources/Configuration.xml");
+        //通过配置信息构建sqlSessionFactory
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsReader);
+        //通过sqlSessionFactory打开一个会话
+        sqlSession = sqlSessionFactory.openSession();
+        /*connection = sqlSession.getConnection();*/
         return sqlSession;
     }
 }

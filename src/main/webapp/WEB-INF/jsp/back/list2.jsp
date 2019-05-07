@@ -5,6 +5,13 @@
 <% String path=request.getContextPath();
     String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/"+path;
 %>
+<script src="/mybatis/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    function deleteBatch(basePath){
+        $("#mainForm").attr("action",basePath + "/mybatis/DeleteBatchServlet.action")
+        $("#mainForm").submit();
+    }
+</script>
 
 <html>
 <head>
@@ -18,7 +25,7 @@
     <div class="right">
         <div class="current">当前位置：<a href="javascript:void(0)" style="color:#6E6E6E;">内容管理</a> &gt; 内容列表</div>
         <div class="rightCont">
-            <p class="g_title fix">内容列表 <a class="btn03" href="#">新 增</a>&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn03" href="#">删 除</a></p>
+            <p class="g_title fix">内容列表 <a class="btn03" href="#">新 增</a>&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn03" href="javascript:deleteBatch('${basePath}')">删 除</a></p>
             <table class="tab1">
                 <tbody>
                 <tr>
@@ -46,14 +53,15 @@
                     </tr>
                     <c:forEach items="${messageList}" var="message" varStatus="status">
                         <tr>
-                            <td><input type="checkbox" id="" onclick=""/></td>
+                            <td><input type="checkbox" name="id" value="${message.id }"/></td>
+                            <%--<td><input type="checkbox" id="" onclick=""/></td>--%>
                             <td>${status.index+1}</td>
                             <td>${message.command}</td>
                             <%--<td>${description}</td>--%>
                             <td>${message.content}</td>
                             <td>
-                                <a href="#">修改</a>&nbsp;&nbsp;&nbsp;
-                                <a href="#">删除</a>
+                                <a href="${basePath}/mybatis/DeleteOneServlet?id=${message.id}">删除</a>&nbsp;&nbsp;&nbsp;
+                                <a href="#">修改</a>
                             </td>
                         </tr>
                     </c:forEach>
