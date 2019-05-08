@@ -13,6 +13,7 @@
     <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
     <result column="CONTENT" jdbcType="VARCHAR" property="content"/>
   </resultMap>
+
   <!--resultMap的值对应id唯一-->
   <select id="queryMessageList" parameterType="com.ts.mybatis01.bean.Message" resultMap="MessageResult">
     SELECT ID,COMMAND,DESCRIPTION,CONTENT FROM Message WHERE 1=1
@@ -34,6 +35,13 @@
      </foreach>
     )
   </delete>
+  <!-- #{command}注意#避免出错-->
+  <!--useGeneratedKeys="true" keyProperty="id"获取自增主键-->
+  <!--useGeneratedKeys:设置是否使用JDBC的getGeneratedKeys方法获取主键并赋值到keyProperty设置的领域的模型属性中-->
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.ts.mybatis01.bean.Message" >
+               INSERT INTO message(COMMAND,DESCRIPTION,CONTENT) VALUES ( #{command} , #{description} , #{content})
+  </insert>
+
   <!--<select id="version" parameterType="long" resultType="int">
     SELECT version FROM user WHERE id = #{id,jdbcType=INTEGER}
   </select>

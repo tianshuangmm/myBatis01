@@ -3,13 +3,11 @@ package com.ts.mybatis01.dao;
 import com.ts.mybatis01.bean.Message;
 import com.ts.mybatis01.db.DBAccess;
 import org.apache.ibatis.session.SqlSession;
-
 import java.io.IOException;
 import java.util.List;
 
 public class MessageDAO {
     DBAccess dBaccess = new DBAccess();
-
     public List<Message> queryMessageList(Message message) {
         SqlSession sqlSession = null;
         List<Message> messageList =null;
@@ -24,19 +22,6 @@ public class MessageDAO {
         }
         return messageList;
     }
-    //测试
-    public static void main(String[] args) {
-        MessageDAO messageDAO = new MessageDAO();
-        Message message = new Message();
-        List<Message> messageList =messageDAO.queryMessageList(message);
-        if(messageList!=null&&messageList.size()>0){
-            for (int i = 0; i <messageList.size() ; i++) {
-                System.out.println(messageList.get(i));
-            }
-        }
-
-    }
-
     public void deleteById(String id) {
         SqlSession sqlSession = null;
         try {
@@ -48,8 +33,6 @@ public class MessageDAO {
         }finally {
             sqlSession.close();
         }
-
-
     }
     public void deleteByListId(List list) {
         SqlSession sqlSession = null;
@@ -62,7 +45,32 @@ public class MessageDAO {
         }finally {
             sqlSession.close();
         }
-
-
+    }
+    public void InsertMessage(Message message) {
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = dBaccess.getSqlSession();
+            sqlSession.delete("Message.insert",message);
+            sqlSession.commit();//提交  添加修改删除需要提交
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+    }
+    //测试
+    public static void main(String[] args) {
+        MessageDAO messageDAO = new MessageDAO();
+        Message message = new Message();
+        message.setCommand("使用useGeneratedKey添加");
+        message.setDescription("添加一条数据");
+        message.setContent("id设置为自增");
+        /*List<Message> messageList =messageDAO.queryMessageList(message);
+        if(messageList!=null&&messageList.size()>0){
+            for (int i = 0; i <messageList.size() ; i++) {
+                System.out.println(messageList.get(i));
+            }
+        }*/
+        messageDAO.InsertMessage(message);
     }
 }

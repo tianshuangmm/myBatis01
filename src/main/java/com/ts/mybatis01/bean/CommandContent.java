@@ -28,4 +28,13 @@ public class CommandContent {
     public void setContent(String content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "CommandContent{" +
+                "id=" + id +
+                ", command_id=" + command_id +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }

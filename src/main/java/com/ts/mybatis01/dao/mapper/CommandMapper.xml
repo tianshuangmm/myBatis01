@@ -5,7 +5,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--命名空间-->
 <mapper namespace="Command">
-
+  <sql id="SelectSql">c.id,c.name,c.description,cc.content,cc.id c_id</sql>
   <resultMap type="com.ts.mybatis01.bean.Command" id="CommandResult">
     <!--column 数据库中的字段名，property java对应得属性名，id为主键-->
     <id column="id" jdbcType="INTEGER" property="id"/>
@@ -16,14 +16,15 @@
 
 
   <!--resultMap的值对应id唯一-->
-  <select id="queryMessageList" parameterType="com.ts.mybatis01.bean.Message" resultMap="MessageResult">
-    SELECT ID,COMMAND,DESCRIPTION,CONTENT FROM Message WHERE 1=1
-    <if test="command!=null and !''.equals(command.trim()) ">
-      and  command = '${command}'
+  <select id="queryCommandList"  resultMap="CommandResult">
+    /*注意查询的时候一定要查询 cc.id  c_id 不然对象集合里面只有一条数据*/
+    select <include refid="SelectSql"></include>  from command c LEFT JOIN command_content cc on c.id = cc.command_id WHERE 1=1
+    <!--<if test="command!=null and !''.equals(name.trim()) ">
+      and  c.name = '${name}'
     </if>
-    <if test="content!=null and !''.equals(content.trim()) ">
-      and  content like  '%${content}%'
-    </if>
+    <if test="contents!=null and !''.equals(contents.trim()) ">
+      and  cc.content like  '%${content}%'
+    </if>-->
   </select>
   <!--这两个都可以 delete from message where id = ${_prarmeter}-->
   <delete id="delete" parameterType="String">

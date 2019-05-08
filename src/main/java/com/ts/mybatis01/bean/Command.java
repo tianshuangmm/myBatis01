@@ -38,4 +38,14 @@ public class Command {
     public void setContents(List<CommandContent> contents) {
         this.contents = contents;
     }
+
+    @Override
+    public String toString() {
+        return "Command{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", contents=" + contents +
+                '}';
+    }
 }
