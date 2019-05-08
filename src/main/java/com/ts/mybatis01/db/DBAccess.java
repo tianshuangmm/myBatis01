@@ -27,11 +27,14 @@ public class DBAccess {
     public SqlSession getSqlSession() throws IOException {
         SqlSession sqlSession = null;
         Connection connection = null;
+
         //通过配置文件获取数据库连接信息
         //src是根路径
         Reader resourceAsReader = Resources.getResourceAsReader("resources/Configuration.xml");
+
         //通过配置信息构建sqlSessionFactory
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsReader);
+
         //通过sqlSessionFactory打开一个会话
         sqlSession = sqlSessionFactory.openSession();
         /*connection = sqlSession.getConnection();*/

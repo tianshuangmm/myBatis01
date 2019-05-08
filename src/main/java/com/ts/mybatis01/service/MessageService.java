@@ -16,6 +16,7 @@ public class MessageService {
     public void deleteById(String id) {
         messageDAO.deleteById(id);
     }
+
     public void deleteByListId(List list) {
         messageDAO.deleteByListId(list);
     }

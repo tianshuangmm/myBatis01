@@ -32,9 +32,11 @@ public class ListServlet extends HttpServlet {
         try {
             //1.加载驱动
             Class.forName("com.mysql.jdbc.Driver");
+
             //2.创建连接对象
             //mysql返回的时间总是有问题，比实际时间要早8小时
             Connection  connection =DriverManager.getConnection("jdbc:mysql://localhost:3306/mybatis01?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","123456");
+
             //拼接sql
             StringBuilder sql = new StringBuilder("select ID,COMMAND,DESCRIPTION,CONTENT from MESSAGE where 1=1 ");//这里不* ，*会影响查询效率
             if(command!=null&&!"".equals(command)){
@@ -49,16 +51,21 @@ public class ListServlet extends HttpServlet {
                 paramList.add(content);
                 req.setAttribute("content",content);
             }
+
             //打印sql拼接情况
             System.out.println(sql.toString());
             //3.创建properStatement对象
+
             PreparedStatement statement = connection.prepareStatement(sql.toString());
             //向statement里面设置参数
+
             for(int i=0;i<paramList.size();i++) {
                 statement.setString(i+1, paramList.get(i));//sql中?的位置从1开始
             }
+
             //4.执行查询
             ResultSet resultSet = statement.executeQuery();
+
             //5.封装结果集
             while (resultSet.next()){
                 Message message = new Message();
@@ -73,11 +80,13 @@ public class ListServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         //返回数据
         req.setAttribute("messageList",list);
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i));
         }
+
         //页面跳转
         //注意jsp文件放在WEB-INF下，这样必须经过后台才能访问到jsp。
         //如果放在WebRoot下（和WEB-INF平级）是能够被直接访问到的，除非设置了jsp拦截。

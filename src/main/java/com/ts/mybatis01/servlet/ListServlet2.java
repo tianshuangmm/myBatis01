@@ -39,6 +39,7 @@ public class ListServlet2 extends HttpServlet {
         request.setAttribute("command",command);
         request.setAttribute("content",content);
         request.setAttribute("messageList",messageList);
+
         //请求转发
         //getRequestDispatcher是服务器内部跳转，地址栏信息不变，只能跳转到web应用内的网页。
         //sendRedirect是页面重定向，地址栏信息改变，可以跳转到任意网页。
