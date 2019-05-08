@@ -9,6 +9,7 @@ import java.util.List;
 public class MessageDAO {
     DBAccess dBaccess = new DBAccess();
 
+    //查询消息
     public List<Message> queryMessageList(Message message) {
         SqlSession sqlSession = null;
         List<Message> messageList =null;
@@ -24,6 +25,7 @@ public class MessageDAO {
         return messageList;
     }
 
+    //删除消息根据id实际开发中不会删除，都是该状态值
     public void deleteById(String id) {
         SqlSession sqlSession = null;
         try {
@@ -36,6 +38,8 @@ public class MessageDAO {
             sqlSession.close();
         }
     }
+
+    //批量删除
     public void deleteByListId(List list) {
         SqlSession sqlSession = null;
         try {
@@ -49,6 +53,7 @@ public class MessageDAO {
         }
     }
 
+    //自增主键回显
     public void InsertMessage(Message message) {
         SqlSession sqlSession = null;
         try {
@@ -64,15 +69,20 @@ public class MessageDAO {
 
     //测试
     public static void main(String[] args) {
+        //测试查询自增主键回显
         MessageDAO messageDAO = new MessageDAO();
         Message message = new Message();
         message.setCommand("使用useGeneratedKey添加");
         message.setDescription("添加一条数据");
         message.setContent("id设置为自增");
-        /*List<Message> messageList =messageDAO.queryMessageList(message);
+        /*
+        //测试sqlSession
+        List<Message> messageList =messageDAO.queryMessageList(message);
         if(messageList!=null&&messageList.size()>0){
-            for (int i = 0; i <messageList.size() ; i++) {
-                System.out.println(messageList.get(i));
+            if(messageList!=null&&messageList.size()>0){
+                for (int i = 0; i <messageList.size() ; i++) {
+                    System.out.println(messageList.get(i));
+                }
             }
         }*/
         messageDAO.InsertMessage(message);

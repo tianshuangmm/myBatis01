@@ -10,6 +10,7 @@ import java.util.List;
 public class CommandDAO {
     DBAccess dbAccess = new DBAccess();
 
+    //查询list
     public List<Command> queryCommandList(){
         SqlSession sqlSession = null;
         List<Command> commandList = null;
@@ -25,13 +26,13 @@ public class CommandDAO {
     }
 
     public static void main(String[] args) {
+        //一对多查询并在控制台输出结果
         CommandDAO commandDAO = new CommandDAO();
         List<Command> commandList = commandDAO.queryCommandList();
-        for (int i = 0; i < commandList.size(); i++) {
-            System.out.println(commandList.get(i));
-           /* System.out.println(commandList.get(i).getContents());*/
-
+        if(commandList!=null&&commandList.size()>0){
+            for (int i = 0; i < commandList.size(); i++) {
+                System.out.println(commandList.get(i));
+            }
         }
-
     }
 }
