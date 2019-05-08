@@ -8,6 +8,7 @@ import java.util.List;
 
 public class MessageDAO {
     DBAccess dBaccess = new DBAccess();
+
     public List<Message> queryMessageList(Message message) {
         SqlSession sqlSession = null;
         List<Message> messageList =null;
@@ -22,6 +23,7 @@ public class MessageDAO {
         }
         return messageList;
     }
+
     public void deleteById(String id) {
         SqlSession sqlSession = null;
         try {
@@ -46,6 +48,7 @@ public class MessageDAO {
             sqlSession.close();
         }
     }
+
     public void InsertMessage(Message message) {
         SqlSession sqlSession = null;
         try {
@@ -58,6 +61,7 @@ public class MessageDAO {
             sqlSession.close();
         }
     }
+
     //测试
     public static void main(String[] args) {
         MessageDAO messageDAO = new MessageDAO();

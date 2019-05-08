@@ -9,6 +9,7 @@ import java.util.List;
 
 public class CommandDAO {
     DBAccess dbAccess = new DBAccess();
+
     public List<Command> queryCommandList(){
         SqlSession sqlSession = null;
         List<Command> commandList = null;
@@ -22,6 +23,7 @@ public class CommandDAO {
         }
         return commandList;
     }
+
     public static void main(String[] args) {
         CommandDAO commandDAO = new CommandDAO();
         List<Command> commandList = commandDAO.queryCommandList();
