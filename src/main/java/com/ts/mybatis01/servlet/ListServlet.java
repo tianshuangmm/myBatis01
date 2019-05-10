@@ -23,8 +23,14 @@ public class ListServlet extends HttpServlet {
         //设置编码//不加这句的话，在查询框里输入中文，下面getParameter得到的值会是乱码
         req.setCharacterEncoding("utf-8");
         //获取前台传递的参数
-        String command = req.getParameter("command").trim();//和jsp中查询框input的name匹配
-        String content = req.getParameter("content").trim();
+        String command = null;
+        String content = null;
+        if (req.getParameter("command") != null) {
+            command = req.getParameter("command").trim();//和jsp中查询框input的name匹配
+        }
+        if (req.getParameter("content") != null) {
+            content = req.getParameter("content").trim();
+        }
         //页面回显集合
         List<Message> list = new ArrayList<Message>();
         //statement参数集合
