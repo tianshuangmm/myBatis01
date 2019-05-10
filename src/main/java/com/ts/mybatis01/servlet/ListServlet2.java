@@ -16,8 +16,15 @@ public class ListServlet2 extends HttpServlet {
         //设置编码格式避免乱码
         request.setCharacterEncoding("utf-8");
         //获取数据
-        String command= request.getParameter("command");
-        String content= request.getParameter("content");
+        String command = null;
+        String content = null;
+        if (request.getParameter("command") != null) {
+            command = request.getParameter("command").trim();//和jsp中查询框input的name匹配
+            System.out.println(command);
+        }
+        if (request.getParameter("content") != null) {
+            content = request.getParameter("content").trim();
+        }
 
         //mybatis 只允许传递一个参数
         Message message = new Message();
