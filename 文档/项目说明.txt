@@ -5,5 +5,5 @@ list3.jsp+mybatis 分层  一对多    操作数据库
 
 
 需要配置
-     项目名 mybatis01
+     项目名 mybatis
      -Dfile.encoding=UTF-8
