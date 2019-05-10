@@ -4,3 +4,6 @@ list2.jsp+mybatis 分层  一表      操作数据库
 list3.jsp+mybatis 分层  一对多    操作数据库
 
 
+需要配置
+     项目名 mybatis01
+     -Dfile.encoding=UTF-8
