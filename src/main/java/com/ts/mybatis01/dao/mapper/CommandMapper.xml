@@ -5,13 +5,20 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--命名空间-->
 <mapper namespace="Command">
-  <sql id="SelectSql">c.id,c.name,c.description,cc.content,cc.id c_id</sql>
+  <sql id="SelectSql">c.id,c.name,c.description,cc.command_id,cc.content,cc.id c_id</sql>
   <resultMap type="com.ts.mybatis01.bean.Command" id="CommandResult">
     <!--column 数据库中的字段名，property java对应得属性名，id为主键-->
     <id column="id" jdbcType="INTEGER" property="id"/>
     <result column="name" jdbcType="VARCHAR" property="name"/>
     <result column="description" jdbcType="VARCHAR" property="description"/>
-    <collection property="contents" resultMap="CommandContent.contentResult"/>
+    <!--多对一-->
+    <!--<collection property="contents" resultMap="CommandContent.contentResult"/>-->
+    <!--一对多的第二种配置方式-->
+    <collection property="contents" ofType="com.ts.mybatis01.bean.CommandContent" column="c_id">
+      <id column="c_id" jdbcType="INTEGER" property="id"/>
+      <result column="command_id" jdbcType="INTEGER" property="command_id"/>
+      <result column="content" jdbcType="VARCHAR" property="content"/>
+    </collection>
   </resultMap>
 
 

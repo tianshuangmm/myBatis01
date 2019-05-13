@@ -11,5 +11,18 @@
     <id column="c_id" jdbcType="INTEGER" property="id"/>
     <result column="command_id" jdbcType="INTEGER" property="command_id"/>
     <result column="content" jdbcType="VARCHAR" property="content"/>
+    <!--一对一配置-->
+    <association property="command" javaType="com.ts.mybatis01.bean.Command">
+      <id column="id" jdbcType="INTEGER" property="id"/>
+      <result column="name" jdbcType="VARCHAR" property="name"/>
+      <result column="description" jdbcType="VARCHAR" property="description"/>
+      <!--放开报错Exception in thread "main" java.lang.StackOverflowError-->
+      <!--<collection property="contents" resultMap="CommandContent.contentResult"/>-->
+    </association>
   </resultMap>
+
+
+  <select id="queryCommandContent"  resultMap="contentResult">
+    select  cc.id C_ID,cc.command_id,cc.content,c.id,c.name ,c.description from  command_content cc LEFT JOIN command  c  on  cc.command_id =c.id
+  </select>
 </mapper>

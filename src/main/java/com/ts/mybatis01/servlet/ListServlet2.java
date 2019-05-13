@@ -20,13 +20,13 @@ public class ListServlet2 extends HttpServlet {
         String content = null;
         if (request.getParameter("command") != null) {
             command = request.getParameter("command").trim();//和jsp中查询框input的name匹配
-            System.out.println(command);
+            //System.out.println(command);
         }
         if (request.getParameter("content") != null) {
             content = request.getParameter("content").trim();
         }
 
-        //mybatis 只允许传递一个参数
+        //mybatis 只允许传递一个参数这里把页面传递过来的两个参数给封装到一个对象里边
         Message message = new Message();
         if(command!=null&&!"".equals(command))
             message.setCommand(command);

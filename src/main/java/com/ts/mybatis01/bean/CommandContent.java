@@ -4,6 +4,15 @@ public class CommandContent {
      private Integer id;
      private Integer command_id;
      private String content;
+     private Command command;
+
+    public Command getCommand() {
+        return command;
+    }
+
+    public void setCommand(Command command) {
+        this.command = command;
+    }
 
     public Integer getId() {
         return id;
@@ -35,6 +44,7 @@ public class CommandContent {
                 "id=" + id +
                 ", command_id=" + command_id +
                 ", content='" + content + '\'' +
+                ", command=" + command +
                 '}';
     }
 }

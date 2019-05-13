@@ -35,7 +35,7 @@ public class ListServlet extends HttpServlet {
         //页面回显集合
         List<Message> list = new ArrayList<Message>();
         //statement参数集合
-        List<String> paramList=new ArrayList<String>();
+        List<String> paramList= new ArrayList<String>();
         try {
             //1.加载驱动
             Class.forName("com.mysql.jdbc.Driver");
@@ -48,7 +48,7 @@ public class ListServlet extends HttpServlet {
             StringBuilder sql = new StringBuilder("select ID,COMMAND,DESCRIPTION,CONTENT from MESSAGE where 1=1 ");//这里不* ，*会影响查询效率
             if(command!=null&&!"".equals(command)){
                /* sql.append(" and command = '"+command+"'");*/
-                sql.append(" and command = ?");//注意这里有个空格，否则拼接完成后有语法错误。
+                sql.append(" and command = ?");//注意and前面有个空格，否则拼接完成后有语法错误。
                 paramList.add(command);
                 req.setAttribute("command",command);
             }
@@ -65,9 +65,10 @@ public class ListServlet extends HttpServlet {
 
             PreparedStatement statement = connection.prepareStatement(sql.toString());
             //向statement里面设置参数
-
-            for(int i=0;i<paramList.size();i++) {
-                statement.setString(i+1, paramList.get(i));//sql中?的位置从1开始
+            if(paramList!=null&&paramList.size()>0){
+                for(int i=0;i<paramList.size();i++) {
+                    statement.setString(i+1, paramList.get(i));//sql中?的位置从1开始
+                }
             }
 
             //4.执行查询

@@ -16,7 +16,7 @@ public class DeleteOneServlet extends HttpServlet {
 
         //获取删除的id
         String id = request.getParameter("id");
-        System.out.println("要删除的id为:"+id);
+        //System.out.println("要删除的id为:"+id);
         Message message = new Message();
         message.setId(id);
 

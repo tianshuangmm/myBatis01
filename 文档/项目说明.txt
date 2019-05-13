@@ -3,7 +3,84 @@ list.jsp+jdbc 未分层    一表      操作数据库
 list2.jsp+mybatis 分层  一表      操作数据库
 list3.jsp+mybatis 分层  一对多    操作数据库
 
-
+可以看https://www.cnblogs.com/jimisun/p/9414148.html
 需要配置
      项目名 mybatis
      -Dfile.encoding=UTF-8
+
+     问题
+       网站乱码
+       #{} ${} 的区别  ${}常用语列排序查询、order by
+       获取主键自增
+       找不到namespace.id的异常效果
+       排查sql语法错误
+       不要过度使用${}
+       parameterType                  取值写法、
+       String或者基本数据类型   #{_parameter}    对
+                             #{随便写点啥}    不推荐
+                             ognl:_parameter  对
+                             ognl:随便写点啥    错
+       自定义数据类型(Message)  #{随便写点啥}      错
+
+       容易混淆的概念
+       resultMap resultType
+       parameterMap(基本上不用) parameterType
+       #{} ${}
+       #{} ognl
+
+       #{}需要预编译 ${}sql拼接
+     #{} ->>>  select ID,command  from message where command =?
+     ${} ->>>  select ID,command  from message where command ='${command}'
+
+
+     myBatis 标签
+       功能                                     标签名称
+     定义sql语句                             insert、delete、update、select
+     配置Java对象属性与查询结果集中列名对应关系    resultMap
+     控制动态sql拼接                          foreach、if、choose
+     格式化输出                               where、set、trim
+     配置关联关系                              collection、association、sql
+
+     获取批量删除ID
+     String[] ids = request.getParameterValues("id");
+     //数组转集合
+     List<String> list = Arrays.asList(ids);
+
+     connection默认自动提交、myBatis封装后默认自动提交为false
+     即相当于 connection.setAutoCommit(false);因此在执行sql
+     删除时要commit提交或者connection.rollback()回滚。
+
+     mybatis默认支持log4j  导入log4 jar、配置文件即可
+     log.debug info warn error 优先级、
+
+
+     mybatis 中的ognl表达式
+     取值范围                       标签中的属性
+                     String与基本数据类型  _parameter
+     取值写法         自定义类型(Message)   属性名(command)
+                                         数组  array
+                     集合                 List list
+                                         Map   _parameter
+     操作符          Java常用操作符         +、_、*、/、 ==、!=、||、&&
+                    自己特有的操作符        and、or、mod、in、not in
+
+     mybatis 中的ognl表达式
+
+                          数组            array[索引](String[])
+                                         array[索引].属性名(Message[])
+     从集合中取出一条数据     List           list[索引](List<String>])
+                                         list[索引].属性名(List<Message>])
+                          Map            _parameter.key(Map<String,String>)
+                                         key.属性名 (Map<String,Message>)
+     利用foreach 标签     <foreach collection='array' index='i' item='item' separator=','>
+     从集合中取出数据      数组
+                        List   i:索引(下标)       item
+                        Map    i:key             item.属性名
+
+     jdbc
+          加载驱动、获取连接、执行sql语句、获取操作结果封装信息、返回操作结果
+     sqlSession
+          向sql语句传入参数、执行sql语句、获取执行sql语句的结果、事务控制
+     如何获取sqlSession对象
+          通过配置文件获取数据库连接相关信息、通过配置信息构建SQLSessionFactory对象、
+          通过SQLSessionFactory打开数据库回话
