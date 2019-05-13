@@ -29,6 +29,8 @@ list3.jsp+mybatis 分层  一对多    操作数据库
        #{} ognl
 
        #{}需要预编译 ${}sql拼接
+       #{}有预编译效果，会被替换成?；而${}不会，它会直接在解析sql时直接用传进来的参数值替代，使用时别忘了用单引号括起来  '${}'
+       使用${}的场景一般是 order by  '${xxxx}'，总不能order by  ?  把
      #{} ->>>  select ID,command  from message where command =?
      ${} ->>>  select ID,command  from message where command ='${command}'
 
