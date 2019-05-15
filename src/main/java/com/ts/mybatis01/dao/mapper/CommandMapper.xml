@@ -15,6 +15,7 @@
     <!--<collection property="contents" resultMap="CommandContent.contentResult"/>-->
     <!--一对多的第二种配置方式-->
     <collection property="contents" ofType="com.ts.mybatis01.bean.CommandContent" column="c_id">
+      <!--C-id一定要加不然只会显示一条数据-->
       <id column="c_id" jdbcType="INTEGER" property="id"/>
       <result column="command_id" jdbcType="INTEGER" property="command_id"/>
       <result column="content" jdbcType="VARCHAR" property="content"/>

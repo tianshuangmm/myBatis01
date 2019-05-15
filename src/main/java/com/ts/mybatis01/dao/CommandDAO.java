@@ -9,7 +9,6 @@ import java.util.List;
 
 public class CommandDAO {
     DBAccess dbAccess = new DBAccess();
-
     //查询list
     public List<Command> queryCommandList(){
         SqlSession sqlSession = null;
@@ -25,6 +24,7 @@ public class CommandDAO {
         return commandList;
     }
 
+    //测试
     public static void main(String[] args) {
         //一对多查询并在控制台输出结果
         CommandDAO commandDAO = new CommandDAO();
