@@ -1,9 +1,6 @@
 package com.ts.mybatis01.servlet;
 
 import com.ts.mybatis01.bean.Message;
-import jdk.nashorn.internal.ir.RuntimeNode;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
