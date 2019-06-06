@@ -24,7 +24,7 @@ public class ListServlet extends HttpServlet {
         String content = null;
         if (req.getParameter("command") != null) {
             command = req.getParameter("command").trim();//和jsp中查询框input的name匹配
-            System.out.println(command);
+            //System.out.println(command);
         }
         if (req.getParameter("content") != null) {
             content = req.getParameter("content").trim();
