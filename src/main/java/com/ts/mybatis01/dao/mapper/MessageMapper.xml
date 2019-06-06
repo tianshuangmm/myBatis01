@@ -14,72 +14,45 @@
     <result column="CONTENT" jdbcType="VARCHAR" property="content"/>
   </resultMap>
 
-  <!--resultMap的值对应id唯一-->
+  <!--resultMap的值对应id唯一   WHERE 1=1-->
   <select id="queryMessageList" parameterType="com.ts.mybatis01.bean.Message" resultMap="MessageResult">
-    SELECT ID,COMMAND,DESCRIPTION,CONTENT FROM Message WHERE 1=1
-    <if test="command!=null and !''.equals(command.trim()) ">
-      and  command = '${command}'
-    </if>
-    <if test="content!=null and !''.equals(content.trim()) ">
-      and  content like  '%${content}%'
-    </if>
+    SELECT ID,COMMAND,DESCRIPTION,CONTENT FROM Message
+    <where>
+      <if test="command!=null and !''.equals(command.trim()) ">
+        and  command = '${command}'
+      </if>
+      <if test="content!=null and !''.equals(content.trim()) ">
+        and  content like  '%${content}%'
+      </if>
+    </where>
   </select>
-  <!--这两个都可以 delete from message where id = ${_prarmeter}-->
+
+  <!--根据ID删除 这两个都可以 delete from message where id = ${_prarmeter}-->
   <delete id="delete" parameterType="String">
-    delete from message where id = #{id}
+    delete from message
+    <where>
+       and  id = #{id,jdbcType=INTEGER}
+    </where>
   </delete>
+
+  <!--根据ID批量删除  where-->
   <delete id="deleteBatch" parameterType="java.util.List">
-    delete from message where id in (
-     <foreach collection="list" item="item" separator=",">
-       #{item}
-     </foreach>
-    )
+    delete from message
+    <where>
+      <if test="list!=null and list.size()>0">
+        id in (
+        <foreach collection="list" item="item" separator=",">
+          #{item}
+        </foreach>
+        )
+      </if>
+    </where>
   </delete>
+
   <!-- #{command}注意#避免出错-->
   <!--useGeneratedKeys="true" keyProperty="id"获取自增主键-->
   <!--useGeneratedKeys:设置是否使用JDBC的getGeneratedKeys方法获取主键并赋值到keyProperty设置的领域的模型属性中-->
   <insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.ts.mybatis01.bean.Message" >
-               INSERT INTO message(COMMAND,DESCRIPTION,CONTENT) VALUES ( #{command} , #{description} , #{content})
+          INSERT INTO message(COMMAND,DESCRIPTION,CONTENT) VALUES ( #{command} , #{description} , #{content})
   </insert>
-
-  <!--<select id="version" parameterType="long" resultType="int">
-    SELECT version FROM user WHERE id = #{id,jdbcType=INTEGER}
-  </select>
-
-  <delete id="delete" parameterType="UserAlias">
-    DELETE FROM user WHERE id = #{id:INTEGER}
-  </delete>
-
-  <insert id="insert" parameterType="UserAlias" useGeneratedKeys="false">
-    INSERT INTO user
-    ( id,
-    username,
-    password,
-    administrator
-    )
-    VALUES
-    ( #{id},
-    #{username,jdbcType=VARCHAR},
-    #{password.encrypted:VARCHAR},
-    #{administrator,jdbcType=BOOLEAN}
-    )
-  </insert>
-
-  <update id="update" parameterType="UserAlias">
-    UPDATE user SET
-    username = #{username,jdbcType=VARCHAR},
-    password = #{password.encrypted,jdbcType=VARCHAR},
-    administrator = #{administrator,jdbcType=BOOLEAN}
-    WHERE
-    id = #{id,jdbcType=INTEGER}
-  </update>
-
-  &lt;!&ndash;   Unique constraint check &ndash;&gt;
-  <select id="isUniqueUsername" parameterType="map" resultType="boolean">
-    SELECT (count(*) = 0)
-    FROM user
-    WHERE ((#{userId,jdbcType=BIGINT} IS NOT NULL AND id != #{userId,jdbcType=BIGINT}) OR #{userId,jdbcType=BIGINT} IS
-    NULL)  &lt;!&ndash; other than me &ndash;&gt;
-    AND (username = #{username,jdbcType=VARCHAR})
-  </select>-->
 </mapper>
