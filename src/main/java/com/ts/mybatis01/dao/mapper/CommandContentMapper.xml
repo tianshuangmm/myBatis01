@@ -5,6 +5,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--命名空间-->
 <mapper namespace="CommandContent">
+
   <!--type的值对应的javabean，必需填写全路径或者定义的别名-->
   <resultMap type="com.ts.mybatis01.bean.CommandContent" id="contentResult">
     <!--column 数据库中的字段名，property java对应得属性名，id为主键-->
@@ -21,7 +22,7 @@
     </association>
   </resultMap>
 
-
+  <!--查询-->
   <select id="queryCommandContent"  resultMap="contentResult">
     select  cc.id C_ID,cc.command_id,cc.content,c.id,c.name ,c.description from  command_content cc LEFT JOIN command  c  on  cc.command_id =c.id
   </select>
